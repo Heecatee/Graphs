@@ -1,6 +1,7 @@
-import generation.generation
 import os.path
 import sys
+sys.path.append('..')
+from generation import generation
 
 def main():
     graph_arr = []
