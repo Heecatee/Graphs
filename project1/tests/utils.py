@@ -9,12 +9,10 @@ def load_graph_from_file():
     if os.path.isfile("graph.txt" if (len(sys.argv) <= 1) else sys.argv[0]):
         f = open("graph.txt", "r")
         for line in f:
-            if (len(line.split(" ")) > 1):
+            if (len(line.split(" ")) > 1 and has_digits(line.split(" ")[0]) and has_digits(line.split(" ")[1])):
                 graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
-            elif (len(line.split(" ")) > 0):
-                graph_arr.append([int(line.split(" ")[0]), ""])
-            else:
-                graph_arr.append(["", ""])
+            elif (len(line.split(" ")) > 0 and has_digits(line.split(" ")[0])):
+                graph_arr.append([int(line.split(" ")[0]), -1])
     else:
         print("There is no file with graph data!\n")
 
@@ -29,3 +27,6 @@ def print_2D_array(title, arr):
             print(col, end = " ")
         print("")
     print("")
+
+def has_digits(s):
+    return any(i.isdigit() for i in s)

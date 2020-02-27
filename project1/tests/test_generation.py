@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 from generation import generation
 from conversions import conversions
-from utils import utils
+import utils
 
 def main():
     graph_arr = utils.load_graph_from_file()
