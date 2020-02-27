@@ -2,24 +2,6 @@ from array import *
 import os.path
 import sys
 
-def main():
-    graph_arr = []
-    print("")
-
-    if os.path.isfile("graph.txt" if (len(sys.argv) <= 1) else sys.argv[0]):
-        f = open("graph.txt", "r")
-        for line in f:
-            graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
-    else:
-        print("There is no file with graph data!\n")
-
-    graph_arr.sort(key=lambda x:x[0])
-
-    print_2D_array("Initial data", graph_arr)
-    save_to_adjacency_matrix(graph_arr)
-    save_to_adjacency_list(graph_arr)
-    save_to_incidence_matrix(graph_arr)
-
 
 def save_to_adjacency_matrix(graph_arr):
     max_vertex = max(max(x) for x in graph_arr)
@@ -31,6 +13,7 @@ def save_to_adjacency_matrix(graph_arr):
         adjacency_matrix[row[1] - 1][row[0] - 1] = 1
 
     print_2D_array("Adjacency matrix", adjacency_matrix)
+    return adjacency_matrix
 
 
 def save_to_adjacency_list(graph_arr):
@@ -46,6 +29,7 @@ def save_to_adjacency_list(graph_arr):
         adjacency_list[index].append(graph_arr[i][1])
 
     print_2D_array("Adjacency list", adjacency_list)
+    return adjacency_list
 
 
 def save_to_incidence_matrix(graph_arr):
@@ -58,6 +42,7 @@ def save_to_incidence_matrix(graph_arr):
         incidence_matrix[graph_arr[i][1] - 1][i] = 1
 
     print_2D_array("Incidence matrix", incidence_matrix)
+    return incidence_matrix
 
 
 def print_2D_array(title, arr):
@@ -67,5 +52,3 @@ def print_2D_array(title, arr):
             print(col, end = " ")
         print("")
     print("")
-
-main()
