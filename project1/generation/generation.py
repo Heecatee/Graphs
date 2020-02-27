@@ -17,20 +17,34 @@ def save_to_adjacency_matrix(graph_arr):
 
 def save_to_adjacency_list(graph_arr):
     max_vertex = max(max(x) for x in graph_arr) + 1
+    tmp_list = {}
     adjacency_list = []
 
-    # index = 0;
-    # adjacency_list.append([str(graph_arr[0][0]) + ":"])
     # for i in range(0, len(graph_arr)):
-    #     if i > 0 and graph_arr[i - 1][0] != graph_arr[i][0]:
-    #         index += 1
-    #         adjacency_list.append([str(graph_arr[i][0]) + ":"])
-    #     else:
-    #         found_before = -1
-    #         for j in range(0, graph_arr[i][0]):
-    #
-    #     if (graph_arr[i][1] >= 0):
-    #         adjacency_list[index].append(graph_arr[i][1])
+
+    for row in graph_arr:
+        if row[0] in tmp_list.keys():
+            if row[1] >= 0:
+                tmp_list[row[0]].append(row[1])
+                if row[1] not in tmp_list.keys():
+                    tmp_list[row[1]] = []
+                    tmp_list[row[1]].append(row[0])
+                else:
+                    tmp_list[row[1]].append(row[0])
+        else:
+            tmp_list[row[0]] = []
+            if row[1] >= 0:
+                tmp_list[row[0]].append(row[1])
+                if row[1] not in tmp_list.keys():
+                    tmp_list[row[1]] = []
+                    tmp_list[row[1]].append(row[0])
+                else:
+                    tmp_list[row[1]].append(row[0])
+
+    for index, key in enumerate(tmp_list):
+        adjacency_list.append([str(key) + ":"])
+        for vertex in tmp_list[key]:
+            adjacency_list[index].append(vertex)
 
     return adjacency_list
 
