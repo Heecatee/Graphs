@@ -13,6 +13,11 @@ def main():
     adj_list = generation.save_to_adjacency_list(graph_arr)
     inc_matrix = generation.save_to_incidence_matrix(graph_arr)
 
+    
+    utils.print_2D_array("Adjacency matrix", generation.save_to_adjacency_matrix(graph_arr))
+    utils.print_2D_array("Adjacency list", generation.save_to_adjacency_list(graph_arr))
+    utils.print_2D_array("Incidence matrix", generation.save_to_incidence_matrix(graph_arr))
+
     print("----------")
     print("")
 

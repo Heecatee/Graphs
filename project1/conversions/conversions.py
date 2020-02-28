@@ -7,9 +7,10 @@ def adjacency_list_to_adjacency_matrix(adj_list):
         vertex_id = int(row[0][:-1])
         i = 1
         while i<len(row):
-            connection = row[i]-1
-            if i>vertex_id:
+            connection = row[i]
+            if i>=vertex_id:
                 adjacency_matrix[vertex_id][connection] = 1
+                adjacency_matrix[connection][vertex_id] = 1
             i+=1
     return adjacency_matrix
 
@@ -21,6 +22,7 @@ def adjacency_matrix_to_adjacency_list(matrix):
         for j in range(i,len(matrix)):
             if matrix[i][j] == 1:
                 adj_list[i].append(j)
+                adj_list[j].append(i)
     return adj_list
 
 def adjacency_list_to_incident_matrix(adj_list):
@@ -30,8 +32,8 @@ def adjacency_list_to_incident_matrix(adj_list):
         vertex_id = int(row[0][:-1])
         i = 1
         while i<len(row):
-            connection = row[i]-1
-            if i>vertex_id:
+            connection = row[i]
+            if connection>vertex_id:
                 edge = [0]*len(adj_list)
                 edge[vertex_id] = 1
                 edge[i] = 1
