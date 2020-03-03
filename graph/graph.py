@@ -22,20 +22,46 @@ def gen_coords(amount, r):
     return coords
 
 class graph():
-    def __init__(self, file="graph.txt"):
+    def __init__(self):
         self.graph_arr = []
 
+
+    def create_from_sequence(seq):
+        if sum(seq) % 2:
+            print("Suma jest nieparzysta!")
+            return
+        seq.sort(reverse=True)
+        verts = [[i, seq[i]] for i in range(len(seq))]
+        out = []
+        for i in range(len(seq)):
+            for j in range(1, 1 + verts[0][1]):
+                out.append([verts[0][0], verts[j][0]])
+                verts[j][1] -= 1
+            verts[0][1] = 0
+            verts.sort(key=lambda x: x[1], reverse=True)
+        verts.sort(key=lambda x: x[1])
+        if verts[0][1] < 0:
+            print("Pojawiła się wartość ujemna!")
+            return
+        out_graph = graph()
+        out_graph.graph_arr = out
+        return out_graph
+
+
+    def create_from_file(file="graph.txt"):
+        out_graph = graph()
         if os.path.isfile(file if (len(sys.argv) <= 1) else sys.argv[0]):
             f = open(file, "r")
             for line in f:
                 if (len(line.split(" ")) > 1 and has_digits(line.split(" ")[0]) and has_digits(line.split(" ")[1])):
-                    self.graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
+                    out_graph.graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
                 elif (len(line.split(" ")) > 0 and has_digits(line.split(" ")[0])):
-                    self.graph_arr.append([int(line.split(" ")[0]), -1])
+                    out_graph.graph_arr.append([int(line.split(" ")[0]), -1])
         else:
             print("There is no file with graph data!\n")
 
-        self.graph_arr.sort(key=lambda x: x[0])
+        out_graph.graph_arr.sort(key=lambda x: x[0])
+        return out_graph
 
 
     def get_adjecency_matrix(self):

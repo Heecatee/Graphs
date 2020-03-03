@@ -3,4 +3,4 @@ import sys
 sys.path.append('../..')
 from graph.graph import graph
 
-graph().draw()
+graph.create_from_file().draw()
