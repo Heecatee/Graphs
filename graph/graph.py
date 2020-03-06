@@ -2,6 +2,7 @@ import os.path
 import sys
 import math
 from matplotlib import pyplot as plt
+import random
 
 def has_digits(s):
     return any(i.isdigit() for i in s)
@@ -135,3 +136,19 @@ class graph():
             plt.annotate(id, xy=(coords[id][0], coords[id][1]), xytext=(coords[id][2], coords[id][3]))
         plt.axis([-r - 1, r + 1, -r - 1, r + 1])
         plt.show()
+
+    def randomize(self):
+        while True:
+            a = random.randrange(len(self.graph_arr))
+            b = random.randrange(len(self.graph_arr))
+            if self.graph_arr[a][0] == self.graph_arr[b][0]:
+                continue
+            if self.graph_arr[a][0] == self.graph_arr[b][1]:
+                continue
+            if self.graph_arr[a][1] == self.graph_arr[b][0]:
+                continue
+            if self.graph_arr[a][1] == self.graph_arr[b][1]:
+                continue
+            self.graph_arr[a][1] = self.graph_arr[b][0]
+            self.graph_arr[b][1] = self.graph_arr[a][0]
+            break
