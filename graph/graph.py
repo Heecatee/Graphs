@@ -109,3 +109,61 @@ class graph():
             plt.annotate(id, xy=(coords[id][0], coords[id][1]), xytext=(coords[id][2], coords[id][3]))
         plt.axis([-r - 1, r + 1, -r - 1, r + 1])
         plt.show()
+
+    def get_vertices_number(self):
+        return len(self.get_adjecency_list())
+
+    def get_vertex_degree(self, vertex_id):
+        graph_list = self.get_adjecency_list()
+        return len(graph_list[vertex_id])-1
+
+    def get_vertex_neighbours(self,vertex_id):
+        graph_list = self.get_adjecency_list()
+        neighboor_list = []
+        i = 1
+        while i<len(graph_list[vertex_id]):
+            neighboor_list.append(graph_list[vertex_id][i])
+            i+=1
+        return neighboor_list
+    
+    def largest_component(self):
+
+        graph_list = self.get_adjecency_list()
+        size = self.get_vertices_number()
+        visited = [0]*size
+        
+        i = 0
+        component_number = 0
+
+        def depth_search(vertex):
+            if visited[vertex] == 0:
+                visited[vertex] = component_number
+
+                for n in self.get_vertex_neighbours(vertex):
+                    depth_search(n)
+
+        while i<size:
+            if visited[i] == 0:
+                component_number += 1
+                depth_search(i)
+            i+=1
+
+        #checking which component is the biggest:
+        maxsize = 0
+        maxcomponent = 0
+        for c in range(1,component_number):
+            size = 0
+            for i in visited:
+                if i == c:
+                    size +=1
+            if size>maxsize:
+                maxsize = size
+                maxcomponent = c
+        
+        #construction of a resulting graph:
+        new_list = []
+        for v in graph_list:
+            if visited[int(v[0][:-1])]==maxcomponent:
+                new_list.append(v)
+        
+        return new_list
