@@ -1,19 +1,21 @@
 from array import *
 import sys
 sys.path.append('..')
+sys.path.append('../..')
+from graph.graph import graph
 from generation import generation
 from conversions import conversions
 import utils
 
 def main():
 
-    graph_arr = utils.load_graph_from_file()
+    graph_arr = graph.create_from_file()
 
     adj_matrix = generation.save_to_adjacency_matrix(graph_arr)
     adj_list = generation.save_to_adjacency_list(graph_arr)
     inc_matrix = generation.save_to_incidence_matrix(graph_arr)
 
-    
+
     utils.print_2D_array("Adjacency matrix", generation.save_to_adjacency_matrix(graph_arr))
     utils.print_2D_array("Adjacency list", generation.save_to_adjacency_list(graph_arr))
     utils.print_2D_array("Incidence matrix", generation.save_to_incidence_matrix(graph_arr))
