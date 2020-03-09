@@ -167,3 +167,44 @@ class graph():
                 new_list.append(v)
         
         return new_list
+
+    def euler_cycle(self):
+
+        graph_list = self.get_adjacency_list()
+        
+        #checking if possible:
+        for v in graph_list:
+            if self.get_vertex_degree(int(v[0][:-1])) % 2 == 1:
+                return [-1]
+        
+        edge_list = []
+
+        done = False
+
+        #actually walking the graph:
+        vertex = 0  #this is the one we are at currently
+        while done!=True:
+            #getting neighboors:
+            i = 1
+            neighboor_list = []
+            while i<len(graph_list[i]):
+                neighboor_list.append(graph_list[vertex][i])
+                i+=1
+
+            if len(neighboor_list) == 0:
+                #we have came to an end...
+                done = True
+                continue
+            
+            neighboor_list.sort()
+            
+            #walk, append path and remove edge:
+            vertex_to_go = neighboor_list[0]
+
+            edge_list.append(vertex)
+
+            graph_list[vertex].remove(vertex_to_go)
+            graph_list[vertex_to_go].remove(vertex)
+            vertex = vertex_to_go
+
+        return edge_list
