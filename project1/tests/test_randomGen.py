@@ -1,8 +1,9 @@
 import sys
 
 sys.path.append('..')
-from randomGen import random_gen;
-import utils;
+
+from randomGen import random_gen
+from tests import utils
 
 def main():
 
