@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 
 from randomGen import random_gen
-from tests import utils
+import graph.graph_utils as graph_utils
 
 def main():
 
@@ -22,7 +22,7 @@ def main():
         p = float(input("Podaj prawdopodobieństwo wystąpienia krawędzi: "));
         Matrix = random_gen.generate_random_matrix_with_probability(n,p);
 
-    utils.print_2D_array("Graf losowy",Matrix);
+    graph_utils.print_2d_array("Graf losowy",Matrix);
 
 
 main();
