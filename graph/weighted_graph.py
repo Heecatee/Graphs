@@ -4,10 +4,16 @@ import random
 
 
 def generate_random_weights(adjacency_matrix, min_r, max_r):
-    random_weighted_graph = []
-    for row in adjacency_matrix:
-        row.append(random.randrange(min_r, max_r))
-        random_weighted_graph.append(row)
+    random_weighted_graph = [[0] * len(adjacency_matrix) for i in range(len(adjacency_matrix))]
+
+    for i in range(0, len(adjacency_matrix)):
+        for j in range(0, i + 1):
+            if adjacency_matrix[i][j] == 1:
+                random_weighted_graph[i][j] = random.randrange(min_r, max_r)
+
+    for i in range(0, len(adjacency_matrix)):
+        for j in range(0, i + 1):
+            random_weighted_graph[j][i] = random_weighted_graph[i][j]
 
     return random_weighted_graph
 
@@ -18,6 +24,5 @@ class WeightedGraph(graph):
         self.graph_arr = []
 
     def generate_randomly_weighted_connected_graph(self):
-        connected_adjacency_matrix = conversions.adjacency_list_to_adjacency_matrix(self.largest_component(True))
-        return generate_random_weights(connected_adjacency_matrix, 1, 10)
-
+        connected_adjacency_matrix = self.graph_arr
+        return generate_random_weights(connected_adjacency_matrix, 1, 11)
