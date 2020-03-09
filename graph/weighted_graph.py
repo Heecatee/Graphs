@@ -18,6 +18,6 @@ class WeightedGraph(graph):
         self.graph_arr = []
 
     def generate_randomly_weighted_connected_graph(self):
-        connected_adjacency_matrix = conversions.adjacency_list_to_adjacency_matrix(self.euler_cycle())
+        connected_adjacency_matrix = conversions.adjacency_list_to_adjacency_matrix(self.largest_component(True))
         return generate_random_weights(connected_adjacency_matrix, 1, 10)
 

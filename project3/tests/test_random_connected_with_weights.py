@@ -20,8 +20,10 @@ def main():
     g = np.squeeze(np.asarray(random_gen.generate_random_matrix_with_edges(n, l)))
     weighted_graph = WeightedGraph()
     weighted_graph.graph_arr = g
+    print(g)
 
     randomly_weighted_graph = weighted_graph.generate_randomly_weighted_connected_graph()
+    graph_utils.print_2d_array("", randomly_weighted_graph)
 
 
 main()

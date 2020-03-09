@@ -5,6 +5,7 @@ import math
 from matplotlib import pyplot as plt
 import graph.graph_utils as graph_utils
 import random
+import operations.conversions as conversions
 
 
 def get_max_vertex(graph_arr):
@@ -25,7 +26,7 @@ def get_vertex_degree(graph, vertex_id):
 
 
 def get_vertex_neighbours(graph, vertex_id):
-    graph_list = graph_utils.array_to_int(graph.get_adjacency_list())
+    graph_list = graph_utils.list_to_int_array(graph.get_adjacency_list())
     neighbor_list = []
     i = 1
     while i < len(graph_list[vertex_id]):
@@ -184,6 +185,7 @@ class graph:
     def largest_component(self):
 
         graph_list = self.get_adjacency_list()
+        print(graph_list)
         size = get_vertices_number(self)
         visited = [0]*size
 

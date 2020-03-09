@@ -14,12 +14,15 @@ def print_2d_array(title, arr):
     print("")
 
 
-def array_to_int(arr):
+def list_to_int_array(arr):
     new_arr = []
     index = 0
     for row in arr:
         new_arr.append([])
         for col in row:
-            new_arr[index].append(int(col[0:1]))
+            if type(col) == str:
+                new_arr[index].append(int(col.split('(')[0].split(':')[0]))
+            else:
+                new_arr[index].append(int(col))
         index += 1
     return new_arr
