@@ -7,6 +7,33 @@ import graph.graph_utils as graph_utils
 import random
 
 
+def get_max_vertex(graph_arr):
+    return max(max(x) for x in graph_arr) + 1
+
+
+def get_amount_of_empty_vertex(graph_arr):
+    return sum(x.count(-1) for x in graph_arr)
+
+
+def get_vertices_number(graph):
+    return len(graph.get_adjacency_list())
+
+
+def get_vertex_degree(graph, vertex_id):
+    graph_list = graph.get_adjacency_list()
+    return len(graph_list[vertex_id]) - 1
+
+
+def get_vertex_neighbours(graph, vertex_id):
+    graph_list = graph_utils.array_to_int(graph.get_adjacency_list())
+    neighbor_list = []
+    i = 1
+    while i < len(graph_list[vertex_id]):
+        neighbor_list.append(graph_list[vertex_id][i])
+        i += 1
+    return neighbor_list
+
+
 def gen_coords(amount, r):
     step = 2 * math.pi / amount
     coords = [(r * math.cos(math.pi / 2 - step * (0.5 + a)),
@@ -61,8 +88,8 @@ class graph:
         return out_graph
 
     def get_adjacency_matrix(self):
-        adjacency_matrix = [[0] * graph_utils.get_max_vertex(self.graph_arr) for i in
-                            range(graph_utils.get_max_vertex(self.graph_arr))]
+        adjacency_matrix = [[0] * get_max_vertex(self.graph_arr) for i in
+                            range(get_max_vertex(self.graph_arr))]
 
         for row in self.graph_arr:
             weight = 1
@@ -113,11 +140,11 @@ class graph:
         return adjacency_list
 
     def get_incidence_matrix(self):
-        incidence_matrix = [[0] * (len(self.graph_arr) - graph_utils.get_amount_of_empty_vertex(self.graph_arr)) for i
+        incidence_matrix = [[0] * (len(self.graph_arr) - get_amount_of_empty_vertex(self.graph_arr)) for i
                             in
-                            range(graph_utils.get_max_vertex(self.graph_arr))]
+                            range(get_max_vertex(self.graph_arr))]
 
-        for i in range(0, len(self.graph_arr) - graph_utils.get_amount_of_empty_vertex(self.graph_arr)):
+        for i in range(0, len(self.graph_arr) - get_amount_of_empty_vertex(self.graph_arr)):
             # row[0] - first vertex, row[1] - second vertex
             if self.graph_arr[i][0] >= 0 and self.graph_arr[i][1] >= 0:
                 incidence_matrix[self.graph_arr[i][0]][i] = 1
@@ -157,7 +184,7 @@ class graph:
     def largest_component(self):
 
         graph_list = self.get_adjacency_list()
-        size = graph_utils.get_vertices_number(self)
+        size = get_vertices_number(self)
         visited = [0]*size
 
         i = 0
@@ -167,7 +194,7 @@ class graph:
             if visited[vertex] == 0:
                 visited[vertex] = component_number
 
-                for n in graph_utils.get_vertex_neighbours(self, vertex):
+                for n in get_vertex_neighbours(self, vertex):
                     depth_search(n)
 
         while i<size:
@@ -202,7 +229,7 @@ class graph:
 
         #checking if possible:
         for v in graph_list:
-            if graph_utils.get_vertex_degree(self, int(v[0][:-1])) % 2 == 1:
+            if get_vertex_degree(self, int(v[0][:-1])) % 2 == 1:
                 return [-1]
 
         edge_list = []
