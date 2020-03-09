@@ -1,4 +1,3 @@
-from array import *
 import sys
 
 sys.path.append('..')
@@ -6,9 +5,8 @@ sys.path.append('../..')
 
 from graph.graph import graph
 from generation import generation
-from conversions import conversions
 import graph.graph_utils as graph_utils
-
+import operations.conversions as conversions
 
 def main():
     graph_arr = graph.create_from_file().graph_arr

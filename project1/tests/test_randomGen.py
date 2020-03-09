@@ -2,8 +2,8 @@ import sys
 
 sys.path.append('..')
 
-from randomGen import random_gen
 import graph.graph_utils as graph_utils
+import operations.random_gen as random_gen
 
 def main():
 
