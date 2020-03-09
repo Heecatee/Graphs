@@ -23,7 +23,7 @@ def get_vertex_degree(graph, vertex_id):
 
 
 def get_vertex_neighbours(graph, vertex_id):
-    graph_list = graph.get_adjacency_list()
+    graph_list = array_to_int(graph.get_adjacency_list())
     neighbor_list = []
     i = 1
     while i < len(graph_list[vertex_id]):
@@ -39,3 +39,14 @@ def print_2d_array(title, arr):
             print(col, end=" ")
         print("")
     print("")
+
+
+def array_to_int(arr):
+    new_arr = []
+    index = 0
+    for row in arr:
+        new_arr.append([])
+        for col in row:
+            new_arr[index].append(int(col[0:1]))
+        index += 1
+    return new_arr
