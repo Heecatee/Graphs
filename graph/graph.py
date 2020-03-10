@@ -136,7 +136,7 @@ class graph():
             plt.annotate(id, xy=(coords[id][0], coords[id][1]), xytext=(coords[id][2], coords[id][3]))
         plt.axis([-r - 1, r + 1, -r - 1, r + 1])
         plt.show()
-
+    
     def randomize(self):
         while True:
             a = random.randrange(len(self.graph_arr))
