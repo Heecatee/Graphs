@@ -26,3 +26,7 @@ def list_to_int_array(arr):
                 new_arr[index].append(int(col))
         index += 1
     return new_arr
+
+
+def get_vertices_number(graph):
+    return len(graph.get_adjacency_list())

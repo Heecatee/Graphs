@@ -16,10 +16,6 @@ def get_amount_of_empty_vertex(graph_arr):
     return sum(x.count(-1) for x in graph_arr)
 
 
-def get_vertices_number(graph):
-    return len(graph.get_adjacency_list())
-
-
 def get_vertex_degree(graph, vertex_id):
     graph_list = graph.get_adjacency_list()
     return len(graph_list[vertex_id]) - 1

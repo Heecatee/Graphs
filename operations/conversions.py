@@ -21,6 +21,7 @@ def adjacency_matrix_to_adjacency_list(matrix):
         adj_list.append([str(i) + ":"])
     for i in range(0, len(matrix)):
         for j in range(i, len(matrix)):
+            # przy wagach trzeba bedzie dodac '(waga)' do kazdego wierzcholka
             if matrix[i][j] == 1:
                 adj_list[i].append(j)
                 adj_list[j].append(i)
@@ -122,3 +123,15 @@ def incident_matrix_to_adjacency_matrix(inc_matrix):
                 break
             i += 1
     return adj_matrix
+
+
+def adjacency_matrix_to_base_format_with_weights(matrix):
+    base_format = []
+    index = 0
+    for i in range(0, len(matrix)):
+        for j in range(i, len(matrix)):
+            if matrix[i][j] > 0:
+                base_format.append([i, j, matrix[i][j]])
+        index += 1
+
+    return base_format
