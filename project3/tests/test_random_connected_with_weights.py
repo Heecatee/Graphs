@@ -3,8 +3,6 @@ import sys
 sys.path.append('..')
 sys.path.append('../..')
 
-from graph.graph import graph
-from graph.weighted_graph import WeightedGraph
 import graph.graph_utils as graph_utils
 import operations.random_gen as random_gen
 import numpy as np
@@ -18,12 +16,7 @@ def main():
             break
 
     g = np.squeeze(np.asarray(random_gen.generate_random_matrix_with_edges(n, l)))
-    weighted_graph = WeightedGraph()
-    weighted_graph.graph_arr = g
-    print(g)
-
-    randomly_weighted_graph = weighted_graph.generate_randomly_weighted_connected_graph()
-    graph_utils.print_2d_array("", randomly_weighted_graph)
+    graph_utils.print_2d_array("", random_gen.generate_random_connected_weighted_graph(g, 1, 10))
 
 
 main()
