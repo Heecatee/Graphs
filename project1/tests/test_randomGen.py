@@ -1,9 +1,9 @@
-import random as r;
 import sys
-sys.path.append('..')
-from randomGen import random_gen
-import utils;
 
+sys.path.append('..')
+
+import graph.graph_utils as graph_utils
+import operations.random_gen as random_gen
 
 def main():
 
@@ -15,14 +15,14 @@ def main():
     if way == 0 :
         while 1>0:
             l = int(input("Podaj liczbe krawędzi: "));
-            if l<= (n*n-n)/2:  
+            if l<= (n*n-n)/2:
                 break;
         Matrix = random_gen.generate_random_matrix_with_edges(n,l);
     else:
         p = float(input("Podaj prawdopodobieństwo wystąpienia krawędzi: "));
         Matrix = random_gen.generate_random_matrix_with_probability(n,p);
 
-    utils.print_2D_array("",Matrix);
-   
+    graph_utils.print_2d_array("Graf losowy",Matrix);
+
 
 main();
