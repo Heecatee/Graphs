@@ -5,7 +5,7 @@ graf losowy. Przypisać każdej krawędzi tego grafu losową wagę będącą
 liczbą naturalną z zakresu 1 do 10.
 
 ```bash
-python test_weighted_graph.py
+python test_random_connected_with_weights.py
 ```
 
 (2)  Zaimplementować algorytm Dijkstry do znajdowania najkrótszych ścieżek od zadanego wierzchołka do pozostałych wierzchołków i zastosować

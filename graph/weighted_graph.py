@@ -6,14 +6,14 @@ import operations.conversions as conversions
 import numpy as np
 
 
-def min_distance(self, dist, visited_vertices):
+def min_distance(size, dist, visited):
     min_dist = sys.maxsize
-
     min_index = -1
-    for v in range(self.V):
-        if dist[v] < min_dist and visited_vertices[v] is False:
-            min_dist = dist[v]
-            min_index = v
+
+    for vertex in range(size):
+        if dist[vertex] < min_dist and visited[vertex] is False:
+            min_dist = dist[vertex]
+            min_index = vertex
 
     return min_index
 
@@ -40,23 +40,45 @@ class WeightedGraph(graph):
 
     def dijkstra_algorithm(self, start_vertex):
         adjacency_matrix = self.get_adjacency_matrix()
-        size = graph_utils.get_vertices_number(self.graph_arr)
+        size = graph_utils.get_vertices_number(self)
+
+        visited_vertices = []
 
         distances = [sys.maxsize] * size
         distances[start_vertex] = 0
         visited_vertices = [False] * size
+        last_vertex = [-1] * size
 
         for i in range(size):
 
             # pick vertex with shortest distance
-            u = min_distance(distances, visited_vertices)
+            u = min_distance(size, distances, visited_vertices)
 
             # put the minimum distance vertex in the shortest path tree
             visited_vertices[u] = True
 
             for v in range(size):
-                if adjacency_matrix[u][v] > 0 and visited_vertices[v] is False and distances[v] > distances[u] + \
-                        adjacency_matrix[u][v]:
+                if adjacency_matrix[u][v] > 0 and distances[v] > distances[u] + adjacency_matrix[u][v]:
                     distances[v] = distances[u] + adjacency_matrix[u][v]
+                    last_vertex[v] = u
+                    print(u)
 
-        return distances
+        ordered_vertices = []
+        for i in range(size):
+            v = last_vertex[i]
+            ordered_vertices.append(str(i))
+            if v != -1:
+                ordered_vertices[i] += "-" + str(v)
+            while v != start_vertex and v != -1:
+                ordered_vertices[i] += "-" + str(last_vertex[v])
+                v = last_vertex[last_vertex[v]]
+
+        result = []
+        vertex = 0
+        for dist in distances:
+            result.append(["d(" + str(vertex) + ") =", dist, "==>", ordered_vertices[vertex]])
+            vertex += 1
+
+        distances[distances.index(min(distances))] = sys.maxsize
+        result.append(["---- minimum distance =", "d(" + str(distances.index(min(distances))) + ")"])
+        return result

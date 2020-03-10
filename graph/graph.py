@@ -5,11 +5,12 @@ import math
 from matplotlib import pyplot as plt
 import graph.graph_utils as graph_utils
 import random
+import numpy as np
 import operations.conversions as conversions
 
 
 def get_max_vertex(graph_arr):
-    return max(max(x) for x in graph_arr) + 1
+    return max(max(x) for x in np.array(graph_arr)[0:, :2]) + 1
 
 
 def get_amount_of_empty_vertex(graph_arr):
@@ -73,7 +74,8 @@ class graph:
             f = open(file, "r")
             for line in f:
                 if len(line.split(" ")) > 2 and graph_utils.has_digits(line.split(" ")):
-                    out_graph.graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1]), int(line.split(" ")[2])])
+                    out_graph.graph_arr.append(
+                        [int(line.split(" ")[0]), int(line.split(" ")[1]), int(line.split(" ")[2])])
                 elif len(line.split(" ")) > 1 and graph_utils.has_digits(line.split(" ")):
                     out_graph.graph_arr.append([int(line.split(" ")[0]), int(line.split(" ")[1])])
                 elif len(line.split(" ")) > 0 and graph_utils.has_digits(line.split(" ")):
@@ -183,7 +185,7 @@ class graph:
         graph_list = self.get_adjacency_list()
         print(graph_list)
         size = get_vertices_number(self)
-        visited = [0]*size
+        visited = [0] * size
 
         i = 0
         component_number = 0
@@ -195,28 +197,28 @@ class graph:
                 for n in get_vertex_neighbours(self, vertex):
                     depth_search(n)
 
-        while i<size:
+        while i < size:
             if visited[i] == 0:
                 component_number += 1
                 depth_search(i)
-            i+=1
+            i += 1
 
-        #checking which component is the biggest:
+        # checking which component is the biggest:
         maxsize = 0
         maxcomponent = 0
-        for c in range(1,component_number):
+        for c in range(1, component_number):
             size = 0
             for i in visited:
                 if i == c:
-                    size +=1
-            if size>maxsize:
+                    size += 1
+            if size > maxsize:
                 maxsize = size
                 maxcomponent = c
 
-        #construction of a resulting graph:
+        # construction of a resulting graph:
         new_list = []
         for v in graph_list:
-            if visited[int(v[0][:-1])]==maxcomponent:
+            if visited[int(v[0][:-1])] == maxcomponent:
                 new_list.append(v)
 
         return new_list
@@ -225,7 +227,7 @@ class graph:
 
         graph_list = self.get_adjacency_list()
 
-        #checking if possible:
+        # checking if possible:
         for v in graph_list:
             if get_vertex_degree(self, int(v[0][:-1])) % 2 == 1:
                 return [-1]
@@ -234,24 +236,24 @@ class graph:
 
         done = False
 
-        #actually walking the graph:
-        vertex = 0  #this is the one we are at currently
-        while done!=True:
-            #getting neighboors:
+        # actually walking the graph:
+        vertex = 0  # this is the one we are at currently
+        while done != True:
+            # getting neighboors:
             i = 1
             neighboor_list = []
-            while i<len(graph_list[i]):
+            while i < len(graph_list[i]):
                 neighboor_list.append(graph_list[vertex][i])
-                i+=1
+                i += 1
 
             if len(neighboor_list) == 0:
-                #we have came to an end...
+                # we have came to an end...
                 done = True
                 continue
 
             neighboor_list.sort()
 
-            #walk, append path and remove edge:
+            # walk, append path and remove edge:
             vertex_to_go = neighboor_list[0]
 
             edge_list.append(vertex)
