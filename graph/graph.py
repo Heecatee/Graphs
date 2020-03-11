@@ -5,19 +5,16 @@ import math
 from matplotlib import pyplot as plt
 import graph.graph_utils as graph_utils
 import random
+import numpy as np
 import operations.conversions as conversions
 
 
 def get_max_vertex(graph_arr):
-    return max(max(x) for x in graph_arr) + 1
+    return max(max(x) for x in np.array(graph_arr)[0:, :2]) + 1
 
 
 def get_amount_of_empty_vertex(graph_arr):
     return sum(x.count(-1) for x in graph_arr)
-
-
-def get_vertices_number(graph):
-    return len(graph.get_adjacency_list())
 
 
 def get_vertex_degree(graph, vertex_id):

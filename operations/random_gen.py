@@ -36,7 +36,7 @@ def generate_random_matrix_with_probability(n,p):
     return Matrix;
 
 
-def generate_random_connected_weighted_graph(adjacency_matrix, min_r, max_r):
+def generate_random_weights(adjacency_matrix, min_r, max_r):
     random_weighted_graph = [[0] * len(adjacency_matrix) for i in range(len(adjacency_matrix))]
 
     for i in range(0, len(adjacency_matrix)):
