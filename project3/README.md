@@ -20,7 +20,7 @@ python test_dijkstra.py
 na tym grafie.
 
 ```bash
-python ...
+python test_distances_matrix.py
 ```
 
 (4) Wyznaczyć centrum grafu, to znaczy wierzchołek, którego suma odległości do pozostałych wierzchołków jest minimalna. Wyznaczyć centrum minimax, to znaczy wierzchołek, którego odległość do najdalszego
