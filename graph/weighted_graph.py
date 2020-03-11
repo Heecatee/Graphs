@@ -61,7 +61,6 @@ class WeightedGraph(graph):
                 if adjacency_matrix[u][v] > 0 and distances[v] > distances[u] + adjacency_matrix[u][v]:
                     distances[v] = distances[u] + adjacency_matrix[u][v]
                     last_vertex[v] = u
-                    print(u)
 
         ordered_vertices = []
         for i in range(size):
@@ -80,5 +79,17 @@ class WeightedGraph(graph):
             vertex += 1
 
         distances[distances.index(min(distances))] = sys.maxsize
-        result.append(["---- minimum distance =", "d(" + str(distances.index(min(distances))) + ")"])
-        return result
+        minimum = distances.index(min(distances))
+        result.append(["---- minimum distance =", "d(" + str(minimum) + ")"])
+        return result, distances
+
+    def get_distances_matrix(self):
+        distances_matrix = []
+        size = graph_utils.get_vertices_number(self)
+
+        for i in range(0, size):
+            ignore, distances = self.dijkstra_algorithm(i)
+            distances[distances.index(max(distances))] = 0
+            distances_matrix.append(distances)
+
+        return distances_matrix
