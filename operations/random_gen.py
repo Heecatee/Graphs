@@ -34,3 +34,18 @@ def generate_random_matrix_with_probability(n,p):
                 Matrix[j+i][i]=Matrix[i][j+i];
      
     return Matrix;
+
+
+def generate_random_weights(adjacency_matrix, min_r, max_r):
+    random_weighted_graph = [[0] * len(adjacency_matrix) for i in range(len(adjacency_matrix))]
+
+    for i in range(0, len(adjacency_matrix)):
+        for j in range(0, i + 1):
+            if adjacency_matrix[i][j] == 1:
+                random_weighted_graph[i][j] = r.randrange(min_r, max_r)
+
+    for i in range(0, len(adjacency_matrix)):
+        for j in range(0, i + 1):
+            random_weighted_graph[j][i] = random_weighted_graph[i][j]
+
+    return random_weighted_graph
