@@ -46,6 +46,9 @@ class graph:
     def __init__(self):
         self.graph_arr = []
 
+    def __len__(self):
+        return len(self.get_adjacency_list())
+
     def create_from_sequence(seq):
         if sum(seq) % 2:
             print("Suma jest nieparzysta!")
@@ -182,7 +185,7 @@ class graph:
     def largest_component(self):
 
         graph_list = self.get_adjacency_list()
-        size = get_vertices_number(self)
+        size = len(self)
         visited = [0]*size
 
         i = 0
