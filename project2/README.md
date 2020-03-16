@@ -29,7 +29,7 @@ python test_euler_cycle.py
 (5) Napisać program do generowania losowych grafów k-regularnych.
 
 ```bash
-python ...
+python test_k_regular.py
 ```
 
 (6) Napisać program do sprawdzania (dla małych grafów), czy graf jest
