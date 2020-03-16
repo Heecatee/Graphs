@@ -30,13 +30,7 @@ wierzchołka jest minimalna.
 python ...
 ```
 
-(5) Napisać program do generowania losowych grafów k-regularnych.
-
-```bash
-python ...
-```
-
-(6) Wyznaczyć minimalne drzewo rozpinające (algorytm Prima lub Kruskala).
+(5) Wyznaczyć minimalne drzewo rozpinające (algorytm Prima lub Kruskala).
 
 ```bash
 python ...
