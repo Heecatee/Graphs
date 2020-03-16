@@ -36,5 +36,5 @@ python test_k_regular.py
 hamiltonowski.
 
 ```bash
-python ...
+python test_hamilton_cycle.py
 ```
