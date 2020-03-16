@@ -182,7 +182,6 @@ class graph:
     def largest_component(self):
 
         graph_list = self.get_adjacency_list()
-        print(graph_list)
         size = get_vertices_number(self)
         visited = [0]*size
 
@@ -241,7 +240,7 @@ class graph:
             #getting neighboors:
             i = 1
             neighboor_list = []
-            while i<len(graph_list[i]):
+            while i<len(graph_list[vertex]):
                 neighboor_list.append(graph_list[vertex][i])
                 i+=1
 
@@ -258,7 +257,21 @@ class graph:
             edge_list.append(vertex)
 
             graph_list[vertex].remove(vertex_to_go)
-            graph_list[vertex_to_go].remove(vertex)
-            vertex = vertex_to_go
+            graph_list[int(vertex_to_go)].remove(str(vertex))
+            vertex = int(vertex_to_go)
 
         return edge_list
+
+    def create_random_euler(vertices_number):
+        max_edges = 3
+        min_edges = 1
+        seq = []
+        generated_graph = None;
+        while generated_graph == None:
+            for i in range(0,vertices_number):
+                seq.append(2*random.randint(min_edges,max_edges))
+                #print(seq[i])
+
+            generated_graph = graph.create_from_sequence(seq)
+
+        return generated_graph, generated_graph.euler_cycle()
