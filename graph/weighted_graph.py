@@ -33,7 +33,7 @@ class WeightedGraph(graph):
 
     def dijkstra_algorithm(self, start_vertex):
         adjacency_matrix = self.get_adjacency_matrix()
-        size = graph_utils.get_vertices_number(self)
+        size = graph_utils.len(self)
 
         visited_vertices = []
 
@@ -78,7 +78,7 @@ class WeightedGraph(graph):
 
     def get_distances_matrix(self):
         distances_matrix = []
-        size = graph_utils.get_vertices_number(self)
+        size = graph_utils.len(self)
 
         for i in range(0, size):
             ignore, distances = self.dijkstra_algorithm(i)
