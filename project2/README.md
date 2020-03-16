@@ -5,13 +5,13 @@ jest ciągiem graficznym, i do konstruowania grafu prostego o stopniach
 wierzchołków zadanych przez ciąg graficzny.
 
 ```bash
-python ...
+python test_from_sequence.py
 ```
 
 (2) Napisać program do randomizacji grafów prostych o zadanych stopniach wierzchołków. Do tego celu wielokrotnie powtórzyć operację zamieniającą losowo wybraną parę krawędzi: ab i cd na parę ad i bc.
 
 ```bash
-python ...
+python test_randomize.py
 ```
 
 (3) Napisać program do znajdowania największej spójnej składowej na grafie.
@@ -36,5 +36,5 @@ python ...
 hamiltonowski.
 
 ```bash
-python test_euler_cycle.py
+python ...
 ```
