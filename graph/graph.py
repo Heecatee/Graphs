@@ -49,16 +49,22 @@ class graph:
     def __len__(self):
         return len(self.get_adjacency_list())
 
+    def add_edge(self, u, v, w):
+        if w is None:
+            self.graph_arr.append([u, v])
+        else:
+            self.graph_arr.append([u, v, w])
+
     def create_from_sequence(seq):
         if sum(seq) % 2:
             print("Suma jest nieparzysta!")
             return False
         seq.sort()
         out = []
-        index = len(seq)-1
+        index = len(seq) - 1
         for i in range(len(seq)):
             if seq[i] == 0:
-                out.append([index,-1])
+                out.append([index, -1])
                 index -= 1
                 seq.pop(i)
             else:
@@ -79,6 +85,11 @@ class graph:
         out_graph = graph()
         out_graph.graph_arr = out
         return out_graph
+
+    # zrobilismy to totalnie nie po pythonowemu, przez co mamy problem, nie chce mi sie juz
+    # tego naprawiac wiec zrobilam wrapper na metode create
+    def create_from_file_with_instance(self, file="graph.txt"):
+        self.graph_arr = graph.create_from_file(file).graph_arr
 
     def create_from_file(file="graph.txt"):
         # 0 - first vertex, 1 - second vertex, 2 - weight
@@ -175,9 +186,9 @@ class graph:
             plt.annotate(id, xy=(coords[id][0], coords[id][1]), xytext=(coords[id][2], coords[id][3]))
         plt.axis([-r - 1, r + 1, -r - 1, r + 1])
         plt.show()
-    
+
     def randomize(self):
-        if len(self)<4:
+        if len(self) < 4:
             print("Too few lines")
             return False
         while True:
@@ -204,7 +215,7 @@ class graph:
 
         graph_list = self.get_adjacency_list()
         size = len(self)
-        visited = [0]*size
+        visited = [0] * size
 
         i = 0
         component_number = 0
@@ -216,28 +227,28 @@ class graph:
                 for n in get_vertex_neighbours(self, vertex):
                     depth_search(n)
 
-        while i<size:
+        while i < size:
             if visited[i] == 0:
                 component_number += 1
                 depth_search(i)
-            i+=1
+            i += 1
 
-        #checking which component is the biggest:
+        # checking which component is the biggest:
         maxsize = 0
         maxcomponent = 0
-        for c in range(1,component_number):
+        for c in range(1, component_number):
             size = 0
             for i in visited:
                 if i == c:
-                    size +=1
-            if size>maxsize:
+                    size += 1
+            if size > maxsize:
                 maxsize = size
                 maxcomponent = c
 
-        #construction of a resulting graph:
+        # construction of a resulting graph:
         new_list = []
         for v in graph_list:
-            if visited[int(v[0][:-1])]==maxcomponent:
+            if visited[int(v[0][:-1])] == maxcomponent:
                 new_list.append(v)
 
         return new_list
@@ -246,7 +257,7 @@ class graph:
 
         graph_list = self.get_adjacency_list()
 
-        #checking if possible:
+        # checking if possible:
         for v in graph_list:
             if get_vertex_degree(self, int(v[0][:-1])) % 2 == 1:
                 return [-1]
@@ -255,24 +266,24 @@ class graph:
 
         done = False
 
-        #actually walking the graph:
-        vertex = 0  #this is the one we are at currently
-        while done!=True:
-            #getting neighboors:
+        # actually walking the graph:
+        vertex = 0  # this is the one we are at currently
+        while done != True:
+            # getting neighboors:
             i = 1
             neighboor_list = []
-            while i<len(graph_list[vertex]):
+            while i < len(graph_list[vertex]):
                 neighboor_list.append(graph_list[vertex][i])
-                i+=1
+                i += 1
 
             if len(neighboor_list) == 0:
-                #we have came to an end...
+                # we have came to an end...
                 done = True
                 continue
 
             neighboor_list.sort()
 
-            #walk, append path and remove edge:
+            # walk, append path and remove edge:
             vertex_to_go = neighboor_list[0]
 
             edge_list.append(vertex)
@@ -287,19 +298,18 @@ class graph:
         seq = []
         generated_graph = None;
         while generated_graph == None:
-            for i in range(0,vertices_number):
-                seq.append(2*random.randint(min_edges,max_edges))
-                #print(seq[i])
+            for i in range(0, vertices_number):
+                seq.append(2 * random.randint(min_edges, max_edges))
+                # print(seq[i])
 
             generated_graph = graph.create_from_sequence(seq)
 
             if not generated_graph:
                 return self.create_random_euler(vertices_number, max_edges, min_edges)
 
-
         return generated_graph, generated_graph.euler_cycle()
-    
-      def posible_move_hamilton(graph1, k, x, tab):
+
+    def posible_move_hamilton(graph1, k, x, tab):
         if graph1[tab[x - 1]][k] == 0:
             return False
         for i in tab:
@@ -327,5 +337,4 @@ class graph:
             print("Brak rozwiązania! \n")
             return False
         print(tab)
-        return True  
-    
+        return True
