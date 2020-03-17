@@ -23,16 +23,9 @@ class WeightedGraph(graph):
         super().__init__()
         self.graph_arr = []
 
-    def random_connected_weighted_graph(self, min_r, max_r):
-        n = int(input("Podaj liczbe wierzchołków: "))
-        while 1 > 0:
-            l = int(input("Podaj liczbe krawędzi: "))
-            if l <= (n * n - n) / 2:
-                break
-
-        g = np.squeeze(np.asarray(random_gen.generate_random_matrix_with_edges(n, l)))
-        # TODO: add largest comp
-        weighted_g = random_gen.generate_random_weights(g, 1, 10)
+    def random_connected_weighted_graph(self, vertices_number, min_r, max_r, max_edges=3, min_edges=1):
+        random_g, random_c = graph().create_random_euler(vertices_number, max_edges, min_edges)
+        weighted_g = random_gen.generate_random_weights(random_g.get_adjacency_matrix(), 1, 10)
 
         self.graph_arr = conversions.adjacency_matrix_to_base_format_with_weights(weighted_g)
 
@@ -40,7 +33,7 @@ class WeightedGraph(graph):
 
     def dijkstra_algorithm(self, start_vertex):
         adjacency_matrix = self.get_adjacency_matrix()
-        size = graph_utils.len(self)
+        size = graph_utils.get_vertices_number(self)
 
         visited_vertices = []
 
@@ -85,7 +78,7 @@ class WeightedGraph(graph):
 
     def get_distances_matrix(self):
         distances_matrix = []
-        size = graph_utils.len(self)
+        size = graph_utils.get_vertices_number(self)
 
         for i in range(0, size):
             ignore, distances = self.dijkstra_algorithm(i)

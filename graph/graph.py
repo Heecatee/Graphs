@@ -283,9 +283,7 @@ class graph:
 
         return edge_list
 
-    def create_random_euler(vertices_number):
-        max_edges = 3
-        min_edges = 1
+    def create_random_euler(self, vertices_number, max_edges=3, min_edges=1):
         seq = []
         generated_graph = None;
         while generated_graph == None:
@@ -295,4 +293,39 @@ class graph:
 
             generated_graph = graph.create_from_sequence(seq)
 
+            if not generated_graph:
+                return self.create_random_euler(vertices_number, max_edges, min_edges)
+
+
         return generated_graph, generated_graph.euler_cycle()
+    
+      def posible_move_hamilton(graph1, k, x, tab):
+        if graph1[tab[x - 1]][k] == 0:
+            return False
+        for i in tab:
+            if i == k:
+                return False
+        return True
+
+    def next_vertex(graph1, x, n, tab):
+        if x == n:
+            if graph1[tab[x - 1]][tab[0]] == 1:
+                return True
+            else:
+                return False
+        for k in range(1, n):
+            if graph.posible_move_hamilton(graph1, k, x, tab):
+                tab[x] = k
+                if graph.next_vertex(graph1, x + 1, n, tab):
+                    return True
+                tab[x] = -1
+        return False
+
+    def hamilton_cycle(graph1, x, n, tab):
+
+        if not graph.next_vertex(graph1, 1, n, tab):
+            print("Brak rozwiązania! \n")
+            return False
+        print(tab)
+        return True  
+    
