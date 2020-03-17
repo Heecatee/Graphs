@@ -7,6 +7,14 @@ generowania losowych digrafów z zespołu G(n, p).
 python test_digraph_encoding.py
 python test_random_digraph.py
 ```
+Macierz incydencji:
+
+![alt text](https://static.javatpoint.com/tutorial/graph-theory/images/graph-representations4.png)
+
+Macierz sąsiedztwa:
+
+![alt text](https://ycpcs.github.io/cs360-spring2019/lectures/images/lecture15/adjmatexample.png)
+
 
 (2) Zaimplementować algorytm Kosaraju do szukania silnie spójnych składowych na digrafie i zastosować go do digrafu losowego.
 
