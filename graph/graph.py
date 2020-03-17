@@ -52,10 +52,19 @@ class graph:
     def create_from_sequence(seq):
         if sum(seq) % 2:
             print("Suma jest nieparzysta!")
-            return
+            return False
+        seq.sort()
+        out = []
+        index = len(seq)-1
+        for i in range(len(seq)):
+            if seq[i] == 0:
+                out.append([index,-1])
+                index -= 1
+                seq.pop(i)
+            else:
+                break
         seq.sort(reverse=True)
         verts = [[i, seq[i]] for i in range(len(seq))]
-        out = []
         for i in range(len(seq)):
             for j in range(1, 1 + verts[0][1]):
                 out.append([verts[0][0], verts[j][0]])
@@ -65,7 +74,8 @@ class graph:
         verts.sort(key=lambda x: x[1])
         if verts[0][1] < 0:
             print("Pojawiła się wartość ujemna!")
-            return
+            return False
+        out.sort()
         out_graph = graph()
         out_graph.graph_arr = out
         return out_graph
@@ -167,6 +177,9 @@ class graph:
         plt.show()
     
     def randomize(self):
+        if len(self)<4:
+            print("Too few lines")
+            return False
         while True:
             a = random.randrange(len(self.graph_arr))
             b = random.randrange(len(self.graph_arr))
@@ -178,8 +191,13 @@ class graph:
                 continue
             if self.graph_arr[a][1] == self.graph_arr[b][1]:
                 continue
-            self.graph_arr[a][1] = self.graph_arr[b][0]
-            self.graph_arr[b][1] = self.graph_arr[a][0]
+            if [self.graph_arr[a][0], self.graph_arr[b][1]] in self.graph_arr:
+                continue
+            if [self.graph_arr[b][0], self.graph_arr[a][1]] in self.graph_arr:
+                continue
+            tmp = self.graph_arr[a][1]
+            self.graph_arr[a][1] = self.graph_arr[b][1]
+            self.graph_arr[b][1] = tmp
             break
 
     def largest_component(self):
