@@ -33,9 +33,13 @@ class DirectedGraph(WeightedGraph):
 
         for i in range(0, len(self.graph_arr) - get_amount_of_empty_vertex(self.graph_arr)):
             # row[0] - first vertex, row[1] - second vertex
-            if self.graph_arr[i][0] >= 0 and self.graph_arr[i][1] >= 0:
+            if self.graph_arr[i][0] == self.graph_arr[i][1] and self.graph_arr[i][1] >= 0:
+                incidence_matrix[self.graph_arr[i][0]][i] = 1
+                incidence_matrix[self.graph_arr[i][1]][i] = 1
+            elif self.graph_arr[i][0] >= 0 and self.graph_arr[i][1] >= 0:
                 incidence_matrix[self.graph_arr[i][0]][i] = 1
                 incidence_matrix[self.graph_arr[i][1]][i] = -1
+
 
         return incidence_matrix
 
