@@ -338,3 +338,64 @@ class graph:
             return False
         print(tab)
         return True
+    
+    def get_centers(self):
+        Matrix = self.get_distances_matrix()
+        n = graph_utils.get_vertices_number(self)
+        center = 0
+        center_minmax = 0
+        sum = 0
+        max = 0
+        for i in range(n):
+            sum += Matrix[0][i]
+            if max < Matrix[0][i]:
+                center_minmax = 0
+                max = Matrix[0][i]
+
+        for i in range(1, n):
+            sum_tmp = 0
+            max_tmp = 0
+            for j in range(n):
+                sum_tmp += Matrix[i][j]
+                if max_tmp < Matrix[i][j]:
+                    max_tmp = Matrix[i][j]
+            if sum_tmp < sum:
+                sum = sum_tmp
+                center = i
+            if max_tmp < max:
+                center_minmax = i
+                max = max_tmp
+
+        print("Centrum grafu:", center, "(suma odległości: ", sum, ")")
+        print("Centrum minmax grafu:", center_minmax, "(odleglosc od najdalszego: ", max, ")")
+        return center, center_minmax
+
+    def prim_algorithm(self):
+        matrix = self.get_adjacency_matrix()
+        n = graph_utils.get_vertices_number(self)
+        tab_T = [-1 for x in range(n)]
+        tab_W = [0 for x in range(n)]
+        for i in range(n):
+            tab_W[i] = i
+        tab_T[0] = 0
+        tab_W[0] = -1
+        tmp_x = 0
+        tmp_y = 0
+        graph_arr_prim_tree = []
+        for i in range(n - 1):
+            min = sys.maxsize
+            for x in range(n):
+                if tab_T[x] != -1:
+                    for y in range(n):
+                        if tab_W[y] != -1:
+                            if min > matrix[tab_T[x]][tab_W[y]] != 0:
+                                min = matrix[tab_T[x]][tab_W[y]]
+                                tmp_x = tab_T[x]
+                                tmp_y = tab_W[y]
+            tab_W[tmp_y] = -1
+            tab_T[tmp_y] = tmp_y
+            graph_arr_prim_tree.append([tmp_x, tmp_y, min])
+        self.graph_arr = graph_arr_prim_tree
+        return self
+
+    
