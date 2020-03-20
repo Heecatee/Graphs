@@ -4,6 +4,28 @@ from graph.graph import get_amount_of_empty_vertex
 import operations.random_gen as random_gen
 import operations.conversions as conversions
 import random
+from graph import graph_utils
+
+
+# ------------------ Functions for Kosaraju Algorithm ---------------------#
+def DFS_visit(v, g_matrix, d, f, t):
+    t += 1
+    d[v] = t
+    for u in range(len(g_matrix)):
+        if g_matrix[v][u] == 1 and d[u] == -1:
+            DFS_visit(u, g_matrix, d, f, t)
+    t += 1
+    f[v] = t
+
+
+def components_r(nr, v, g_matrix_transposed, comp):
+    for u in range(len(g_matrix_transposed)):
+        if g_matrix_transposed[v][u] == 1 and comp[u] == -1:
+            comp[u] = nr
+            components_r(nr, u, g_matrix_transposed, comp)
+
+
+# ------------------------------------------------------------------------#
 
 
 class DirectedGraph(WeightedGraph):
@@ -58,3 +80,40 @@ class DirectedGraph(WeightedGraph):
         print(new_graph)
 
         return self.get_adjacency_matrix()
+    
+    def kosaraju(self):
+        g_matrix = self.get_adjacency_matrix()
+        n = len(g_matrix)
+        d = [-1 for i in range(n)]
+        f = [-1 for i in range(n)]
+        t = 0
+        for v in range(n):
+            if d[v] == -1:
+                DFS_visit(v, g_matrix, d, f, t)
+        g_matrix_transposed = graph_utils.transpose_matrix(g_matrix)
+        nr = 0
+        comp = [-1 for i in range(n)]
+        for v in range(n):
+            if comp[v] == -1:
+                nr += 1
+                comp[v] = nr
+                components_r(nr, v, g_matrix_transposed, comp)
+        return comp
+
+    def kosaraju_with_adj_matrix(g_matrix):
+        n = len(g_matrix)
+        d = [-1 for i in range(n)]
+        f = [-1 for i in range(n)]
+        t = 0
+        for v in range(n):
+            if d[v] == -1:
+                DFS_visit(v, g_matrix, d, f, t)
+        g_matrix_transposed = graph_utils.transpose_matrix(g_matrix)
+        nr = 0
+        comp = [-1 for i in range(n)]
+        for v in range(n):
+            if comp[v] == -1:
+                nr += 1
+                comp[v] = nr
+                components_r(nr, v, g_matrix_transposed, comp)
+        return comp
