@@ -19,6 +19,7 @@ Macierz sąsiedztwa:
 (2) Zaimplementować algorytm Kosaraju do szukania silnie spójnych składowych na digrafie i zastosować go do digrafu losowego.
 
 ```bash
+python test_kosaraju.py
 ```
 
 (3) Wykorzystując algorytmy z powyższych punktów wygenerować losowy
