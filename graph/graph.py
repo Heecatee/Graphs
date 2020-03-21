@@ -10,7 +10,13 @@ import operations.conversions as conversions
 
 
 def get_max_vertex(graph_arr):
-    return max(max(x) for x in np.array(graph_arr)[0:, :2]) + 1
+    max_vertex = -1
+    for row in graph_arr:
+        for i in range(0, len(row)):
+            if row[i] > max_vertex and i < 2:
+                max_vertex = row[i]
+
+    return max_vertex + 1
 
 
 def get_amount_of_empty_vertex(graph_arr):
@@ -90,6 +96,7 @@ class graph:
     # tego naprawiac wiec zrobilam wrapper na metode create
     def create_from_file_with_instance(self, file="graph.txt"):
         self.graph_arr = graph.create_from_file(file).graph_arr
+        return self
 
     def create_from_file(file="graph.txt"):
         # 0 - first vertex, 1 - second vertex, 2 - weight
