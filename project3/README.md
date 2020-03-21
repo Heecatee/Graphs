@@ -27,11 +27,11 @@ python test_distances_matrix.py
 wierzchołka jest minimalna.
 
 ```bash
-python ...
+python test_center.py
 ```
 
 (5) Wyznaczyć minimalne drzewo rozpinające (algorytm Prima lub Kruskala).
 
 ```bash
-python ...
+python test_prim_algorithm.py
 ```

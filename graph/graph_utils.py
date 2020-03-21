@@ -30,3 +30,7 @@ def list_to_int_array(arr):
 
 def get_vertices_number(graph):
     return len(graph.get_adjacency_list())
+
+def transpose_matrix(matrix):
+    ret_matrix = [[matrix[j][i] for j in range(len(matrix))] for i in range(len(matrix[0]))]
+    return ret_matrix
