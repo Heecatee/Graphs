@@ -236,7 +236,7 @@ class graph:
         # checking which component is the biggest:
         maxsize = 0
         maxcomponent = 0
-        for c in range(1, component_number):
+        for c in range(1, component_number+1):
             size = 0
             for i in visited:
                 if i == c:
@@ -249,7 +249,7 @@ class graph:
         new_list = []
         for v in graph_list:
             if visited[int(v[0][:-1])] == maxcomponent:
-                new_list.append(v)
+                new_list.append(v[0][:-1])
 
         return new_list
 
@@ -291,6 +291,16 @@ class graph:
             graph_list[vertex].remove(vertex_to_go)
             graph_list[int(vertex_to_go)].remove(str(vertex))
             vertex = int(vertex_to_go)
+        
+        #check if egde_list contains all the vertices:
+        actual_edge_list = [False]*len(graph_list)
+        for e in edge_list:
+            number = int(v[0][:-1])
+            actual_edge_list[number] = True
+        
+        for e in actual_edge_list:
+            if e == False:
+                return [-1]
 
         return edge_list
 

@@ -2,11 +2,12 @@ import sys
 
 sys.path.append('../..')
 from graph.graph import graph
-import utils
 
 def main():
-    g = graph()
+    g = graph.create_from_sequence([1,2,1,2,2,2,2,2])
     component = g.largest_component()
-    utils.print_2D_array("largest component:",component)
+    print(len(component))
+    print(component)
+    g.draw()
 
 main()
