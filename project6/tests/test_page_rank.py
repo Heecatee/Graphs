@@ -1,3 +1,4 @@
+import math
 import sys
 
 sys.path.append('..')
@@ -6,6 +7,13 @@ sys.path.append('../..')
 from graph.directed_graph import DirectedGraph
 import graph.graph_utils as graph_utils
 import random
+
+
+def iloczyn_skalarny(p):
+    wynik = 0.0
+    for i in range(len(p)):
+        wynik += p[i] * p[i]
+    return wynik
 
 
 def PageRank_random(graph, N, d, vertex):
@@ -42,10 +50,16 @@ def PageRank_iteration(graph, N, d):
     for i in range(n):
         for j in range(n):
             matrix_P[i][j] = (1 - d) * matrix_A[i][j] / d_i[i] + d / n
-    # ------------Dodać zbieżność!---------------#
-    for i in range(N):
+
+    count = 0
+    while True:
+        count += 1
+        prev = p
         p = graph_utils.multiply_vector_matrix(p, matrix_P)
-    # -------------------------------------------#
+        if math.fabs(iloczyn_skalarny(p)-iloczyn_skalarny(prev)) < 1e-9:
+            break
+    print("Iteracje ==> ", count)
+
     return p
 
 
