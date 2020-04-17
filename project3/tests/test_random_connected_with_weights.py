@@ -11,7 +11,7 @@ def main():
     graph = WeightedGraph().create_from_file_with_instance()
     graph_utils.print_2d_array("Weighted graph", graph.get_adjacency_matrix())
 
-    graph.random_connected_weighted_graph(8, 1, 10)
+    graph.random_connected_weighted_graph(8, 3, 1)
     graph.draw()
     graph_utils.print_2d_array("Randomly weighted connected graph", graph.get_adjacency_matrix())
 

@@ -23,7 +23,7 @@ class WeightedGraph(graph):
         super().__init__()
         self.graph_arr = []
 
-    def random_connected_weighted_graph(self, vertices_number, min_r, max_r, max_edges=3, min_edges=1):
+    def random_connected_weighted_graph(self, vertices_number, max_edges=3, min_edges=1):
         random_g, random_c = graph().create_random_euler(vertices_number, max_edges, min_edges)
         weighted_g = random_gen.generate_random_weights(random_g.get_adjacency_matrix(), 1, 10)
 

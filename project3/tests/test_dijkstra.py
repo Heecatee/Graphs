@@ -11,7 +11,7 @@ import graph.graph_utils as graph_utils
 def main():
     g = WeightedGraph()
 
-    graph_utils.print_2d_array("Initial data", g.random_connected_weighted_graph(8, 1, 10))
+    graph_utils.print_2d_array("Initial data", g.random_connected_weighted_graph(10, 1, 1))
     g.draw()
 
     length = len(g.get_adjacency_matrix())
