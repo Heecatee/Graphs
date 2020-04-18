@@ -302,11 +302,10 @@ class graph:
         #check if egde_list contains all the vertices:
         actual_edge_list = [False]*len(graph_list)
         for e in edge_list:
-            number = int(v[0][:-1])
-            actual_edge_list[number] = True
+            actual_edge_list[e] = True
         
         for e in actual_edge_list:
-            if e == False:
+            if not e:
                 return [-1]
 
         return edge_list
