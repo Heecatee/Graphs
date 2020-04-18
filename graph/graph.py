@@ -132,7 +132,7 @@ class graph:
         return adjacency_matrix
 
     def get_adjacency_list(self):
-        max_vertex = max(max(x) for x in self.graph_arr) + 1
+        max_vertex = get_max_vertex(self.graph_arr)
         tmp_list = {}
         adjacency_list = []
 
@@ -313,16 +313,19 @@ class graph:
 
     def create_random_euler(self, vertices_number, max_edges=3, min_edges=1):
         seq = []
-        generated_graph = None;
-        while generated_graph == None:
+        generated_graph = None
+        while generated_graph is None or \
+                generated_graph is False or \
+                not generated_graph.is_connected():
+            seq = []
             for i in range(0, vertices_number):
                 seq.append(2 * random.randint(min_edges, max_edges))
                 # print(seq[i])
 
             generated_graph = graph.create_from_sequence(seq)
 
-            if not generated_graph:
-                return self.create_random_euler(vertices_number, max_edges, min_edges)
+            # if not generated_graph:
+            #     return self.create_random_euler(vertices_number, max_edges, min_edges)
 
         return generated_graph, generated_graph.euler_cycle()
 
