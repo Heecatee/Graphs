@@ -415,4 +415,32 @@ class graph:
         self.graph_arr = graph_arr_prim_tree
         return self
 
-    
+    def is_connected(self):
+        matrix_len = graph_utils.get_vertices_number(self)
+        adj_matrix = graph.get_adjacency_matrix(self)
+        visited = [False] * graph_utils.get_vertices_number(self)
+
+        for i in range(0, matrix_len):
+            all_zeros = True
+
+            for j in range(0, matrix_len):
+                if 0 != adj_matrix[i][j]:
+                    all_zeros = False
+
+            if all_zeros:
+                return False
+            self.traverse(i, visited, adj_matrix, matrix_len)
+
+            for j in range(0, matrix_len):
+                if not visited[j]:
+                    return False
+
+        return True
+
+    def traverse(self, i, visited, adj_matrix, matrix_len):
+        visited[i] = True
+
+        for j in range(0, matrix_len):
+            if adj_matrix[i][j] != 0:
+                if not visited[j]:
+                    self.traverse(j, visited, adj_matrix, matrix_len)
