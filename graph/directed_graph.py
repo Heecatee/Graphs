@@ -65,6 +65,43 @@ class DirectedGraph(WeightedGraph):
 
         return incidence_matrix
 
+    def get_adjacency_list(self):
+        max_vertex = max(max(x) for x in self.graph_arr) + 1
+        tmp_list = {}
+        adjacency_list = []
+
+        # for i in range(0, len(self.graph_arr)):
+
+        for row in self.graph_arr:
+            weight = ''
+            if len(row) > 2:
+                weight = '(' + str(row[2]) + ')'
+
+            if row[0] in tmp_list.keys():
+                if row[1] >= 0:
+                    tmp_list[row[0]].append(str(row[1]) + weight)
+                    # if row[1] not in tmp_list.keys():
+                    #     tmp_list[row[1]] = []
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+                    # else:
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+            else:
+                tmp_list[row[0]] = []
+                if row[1] >= 0:
+                    tmp_list[row[0]].append(str(row[1]) + weight)
+                    # if row[1] not in tmp_list.keys():
+                    #     tmp_list[row[1]] = []
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+                    # else:
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+
+        for index, key in enumerate(tmp_list):
+            adjacency_list.append([str(key) + ":"])
+            for vertex in tmp_list[key]:
+                adjacency_list[index].append(vertex)
+
+        return adjacency_list
+
     def random(self, vertex_number, edge_probability):
         self.graph_arr = conversions.adjacency_matrix_to_base_format_with_weights(
             random_gen.generate_random_matrix_with_probability(vertex_number, edge_probability)
@@ -77,7 +114,6 @@ class DirectedGraph(WeightedGraph):
             new_graph.append(row)
 
         self.graph_arr = new_graph
-        print(new_graph)
 
         return self.get_adjacency_matrix()
     
