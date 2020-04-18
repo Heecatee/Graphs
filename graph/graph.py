@@ -296,14 +296,15 @@ class graph:
             edge_list.append(vertex)
 
             graph_list[vertex].remove(vertex_to_go)
-            graph_list[int(vertex_to_go)].remove(str(vertex))
+            if graph_list[int(vertex_to_go)].__contains__(str(vertex)):
+                graph_list[int(vertex_to_go)].remove(str(vertex))
             vertex = int(vertex_to_go)
-        
+
         #check if egde_list contains all the vertices:
         actual_edge_list = [False]*len(graph_list)
         for e in edge_list:
             actual_edge_list[e] = True
-        
+
         for e in actual_edge_list:
             if not e:
                 return [-1]
@@ -315,7 +316,8 @@ class graph:
         generated_graph = None
         while generated_graph is None or \
                 generated_graph is False or \
-                not generated_graph.is_connected():
+                not generated_graph.is_connected() or \
+                generated_graph.euler_cycle() == [-1]:
             seq = []
             for i in range(0, vertices_number):
                 seq.append(2 * random.randint(min_edges, max_edges))
@@ -357,7 +359,7 @@ class graph:
             return False
         print(tab)
         return True
-    
+
     def get_centers(self):
         Matrix = self.get_distances_matrix()
         n = graph_utils.get_vertices_number(self)

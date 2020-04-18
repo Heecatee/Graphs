@@ -23,7 +23,7 @@ class WeightedGraph(graph):
         super().__init__()
         self.graph_arr = []
 
-    def random_connected_weighted_graph(self, vertices_number=7, max_edges=2, min_edges=1):
+    def random_connected_weighted_graph(self, vertices_number=8, max_edges=3, min_edges=1):
         random_g = None
         try_count = 0
 
