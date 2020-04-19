@@ -330,30 +330,48 @@ class graph:
 
         return generated_graph, generated_graph.euler_cycle()
 
+    # Funkcja sprawdzająca czy można wykonać ruch do wierzchołka
+    # tab    -->  tablica odwiedzonych wierzchołków, tab[x-1] --> Aktualny wierzchołek!!!
+    # k      -->  wierzchołek do którego chcemy przejść
+    # x      -->  liczba odwiedzonych wierzchołków  --> w odwołaniach x-1 bo mamy przesunięcie (wierzchołki nie są od 1 tylko od 0)!!!
+    # graph1 -->  macierz sąsiedztwa
     def posible_move_hamilton(graph1, k, x, tab):
+        #Sprzawdzenie czy istnieje krawędz do wierzchołka
         if graph1[tab[x - 1]][k] == 0:
             return False
+        #Sprawdzenie, czy wierzchołek który chcemy odwiedzić, już był odwiedzony wcześniej
         for i in tab:
             if i == k:
                 return False
         return True
 
+    # Funckja rekurencyjna do przemieszczania się po grafie
+    # n      --> liczba wierzchołków
     def next_vertex(graph1, x, n, tab):
+        #Sprawdzenie czy odwiedziliśmy już wszystkie wierzchołki
         if x == n:
+            #Sprawdzenie czy istnieje krawędz pomiędzy ostatnim odwiedzonym i pierwszym
             if graph1[tab[x - 1]][tab[0]] == 1:
                 return True
             else:
                 return False
+        #Pętla wszystkich wierzchołków grafu
+        #WAŻNE!!! Startujemy zawsze od wierzchołka 0 ze względu na tą pętlę!!!
         for k in range(1, n):
+            #Sprawdzenie możliwości wykonania ruchu
             if graph.posible_move_hamilton(graph1, k, x, tab):
+                #Jeśli tak to dodajemy wierzchołek do listy odwiedzonych
                 tab[x] = k
+                #Rekurencyjne wywołanie
                 if graph.next_vertex(graph1, x + 1, n, tab):
                     return True
+                #Jeśli nie udało nam się znalezć cyklu to usuwamy wierzchołek z listy odwiedzonych
                 tab[x] = -1
         return False
 
+    # Główna funkcja cyklu hamiltona
     def hamilton_cycle(graph1, x, n, tab):
-
+        #Tutaj pętla rekurencyjna po wszystkich wierzchołkach
         if not graph.next_vertex(graph1, 1, n, tab):
             print("Brak rozwiązania! \n")
             return False
