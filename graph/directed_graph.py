@@ -80,20 +80,10 @@ class DirectedGraph(WeightedGraph):
             if row[0] in tmp_list.keys():
                 if row[1] >= 0:
                     tmp_list[row[0]].append(str(row[1]) + weight)
-                    # if row[1] not in tmp_list.keys():
-                    #     tmp_list[row[1]] = []
-                    #     tmp_list[row[1]].append(str(row[0]) + weight)
-                    # else:
-                    #     tmp_list[row[1]].append(str(row[0]) + weight)
             else:
                 tmp_list[row[0]] = []
                 if row[1] >= 0:
                     tmp_list[row[0]].append(str(row[1]) + weight)
-                    # if row[1] not in tmp_list.keys():
-                    #     tmp_list[row[1]] = []
-                    #     tmp_list[row[1]].append(str(row[0]) + weight)
-                    # else:
-                    #     tmp_list[row[1]].append(str(row[0]) + weight)
 
         for index, key in enumerate(tmp_list):
             adjacency_list.append([str(key) + ":"])

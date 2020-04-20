@@ -94,11 +94,11 @@ class graph:
 
     # zrobilismy to totalnie nie po pythonowemu, przez co mamy problem, nie chce mi sie juz
     # tego naprawiac wiec zrobilam wrapper na metode create
-    def create_from_file_with_instance(self, file="graph.txt"):
-        self.graph_arr = graph.create_from_file(file).graph_arr
+    def create_from_file_with_instance(self, file="graph.txt", sort=True):
+        self.graph_arr = graph.create_from_file(file, sort).graph_arr
         return self
 
-    def create_from_file(file="graph.txt"):
+    def create_from_file(file="graph.txt", sort=True):
         # 0 - first vertex, 1 - second vertex, 2 - weight
         out_graph = graph()
         if os.path.isfile(file if (len(sys.argv) <= 1) else sys.argv[0]):
@@ -113,7 +113,8 @@ class graph:
         else:
             print("There is no file with graph data!\n")
 
-        out_graph.graph_arr.sort(key=lambda x: x[0])
+        if sort:
+            out_graph.graph_arr.sort(key=lambda x: x[0])
         return out_graph
 
     def get_adjacency_matrix(self):
