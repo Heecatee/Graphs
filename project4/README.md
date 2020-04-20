@@ -28,10 +28,13 @@ liczbami całkowitymi z zakresu [−5, 10]. Zaimplementować algorytm
 Bellmana-Forda do znajdowania najkrótszych ścieżek od danego wierzchołka.
 
 ```bash
+python test_bellmann_ford.py
 ```
 
-(4) Bellmana-Forda do znajdowania najkrótszych ścieżek od danego wierzchołka.
+(4) Zaimplementować algorytm Johnsona do szukania odegłości pomiędzy
+wszystkimi parami wierzchołków na ważonym grafie skierowanym.
 
 
 ```bash
+python test_johnson.py
 ```

@@ -12,7 +12,7 @@ def DFS_visit(v, g_matrix, d, f, t):
     t += 1
     d[v] = t
     for u in range(len(g_matrix)):
-        if g_matrix[v][u] == 1 and d[u] == -1:
+        if g_matrix[u][v] == 1 and d[u] == -1:
             DFS_visit(u, g_matrix, d, f, t)
     t += 1
     f[v] = t
@@ -20,7 +20,7 @@ def DFS_visit(v, g_matrix, d, f, t):
 
 def components_r(nr, v, g_matrix_transposed, comp):
     for u in range(len(g_matrix_transposed)):
-        if g_matrix_transposed[v][u] == 1 and comp[u] == -1:
+        if g_matrix_transposed[u][v] == 1 and comp[u] == -1:
             comp[u] = nr
             components_r(nr, u, g_matrix_transposed, comp)
 
@@ -61,7 +61,6 @@ class DirectedGraph(WeightedGraph):
             elif self.graph_arr[i][0] >= 0 and self.graph_arr[i][1] >= 0:
                 incidence_matrix[self.graph_arr[i][0]][i] = 1
                 incidence_matrix[self.graph_arr[i][1]][i] = -1
-
 
         return incidence_matrix
 
@@ -106,7 +105,7 @@ class DirectedGraph(WeightedGraph):
         self.graph_arr = new_graph
 
         return self.get_adjacency_matrix()
-    
+
     def kosaraju(self):
         g_matrix = self.get_adjacency_matrix()
         n = len(g_matrix)
@@ -119,7 +118,7 @@ class DirectedGraph(WeightedGraph):
         g_matrix_transposed = graph_utils.transpose_matrix(g_matrix)
         nr = 0
         comp = [-1 for i in range(n)]
-        for v in range(n):
+        for v in reversed(sorted(range(len(f)), key=lambda k: f[k])):
             if comp[v] == -1:
                 nr += 1
                 comp[v] = nr
@@ -137,7 +136,7 @@ class DirectedGraph(WeightedGraph):
         g_matrix_transposed = graph_utils.transpose_matrix(g_matrix)
         nr = 0
         comp = [-1 for i in range(n)]
-        for v in range(n):
+        for v in reversed(sorted(range(len(f)), key=lambda k: f[k])):
             if comp[v] == -1:
                 nr += 1
                 comp[v] = nr
