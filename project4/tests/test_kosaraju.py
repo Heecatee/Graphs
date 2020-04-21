@@ -25,9 +25,15 @@ def main():
     test_adj_matrix[3][1] = 1
     test_adj_matrix[5][1] = 1
     test_adj_matrix[6][5] = 1
+    print("#############################################")
     graph_utils.print_2d_array("Example digraph 1", test_adj_matrix)
     c = DirectedGraph.kosaraju_with_adj_matrix(test_adj_matrix)
-    print(c)
+    #print(c)
+    for i in range(len(c)):
+        print("Wierzchołek ", i, " należy do składowej nr: ", c[i])
+    print("#############################################")
+    print("\n\n")
+
     test_adj_matrix1 = [[0 for x in range(n)] for y in range(n)]
     test_adj_matrix1[0][1] = 1
     test_adj_matrix1[0][6] = 1
@@ -41,18 +47,20 @@ def main():
     test_adj_matrix1[4][5] = 1
     test_adj_matrix1[5][1] = 1
     test_adj_matrix1[5][2] = 1
+    print("#############################################")
     graph_utils.print_2d_array("Example digraph 2", test_adj_matrix1)
     c = DirectedGraph.kosaraju_with_adj_matrix(test_adj_matrix1)
     print(c)
     for i in range(len(c)):
         print("Wierzchołek ", i, " należy do składowej nr: ", c[i])
-
+    print("#############################################")
+    print("\n\n#############################################")
     graph = DirectedGraph()
-    graph_utils.print_2d_array("Random digraph", graph.random(7, 0.3))
+    graph_utils.print_2d_array("Random digraph", graph.correct_random(7, 0.3))
     c = graph.kosaraju()
     print(c)
     for i in range(len(c)):
         print("Wierzchołek ", i, " należy do składowej nr: ", c[i])
-
+    print("#############################################")
 
 main()
