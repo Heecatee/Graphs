@@ -9,18 +9,18 @@ from graph import graph_utils
 
 # ------------------ Functions for Kosaraju Algorithm ---------------------#
 def DFS_visit(v, g_matrix, d, f, t):
-    t += 1
-    d[v] = t
+    t[0] += 1
+    d[v] = t[0]
     for u in range(len(g_matrix)):
-        if g_matrix[u][v] == 1 and d[u] == -1:
+        if g_matrix[v][u] == 1 and d[u] == -1:
             DFS_visit(u, g_matrix, d, f, t)
-    t += 1
-    f[v] = t
+    t[0] += 1
+    f[v] = t[0]
 
 
 def components_r(nr, v, g_matrix_transposed, comp):
     for u in range(len(g_matrix_transposed)):
-        if g_matrix_transposed[u][v] == 1 and comp[u] == -1:
+        if g_matrix_transposed[v][u] == 1 and comp[u] == -1:
             comp[u] = nr
             components_r(nr, u, g_matrix_transposed, comp)
 
@@ -79,10 +79,20 @@ class DirectedGraph(WeightedGraph):
             if row[0] in tmp_list.keys():
                 if row[1] >= 0:
                     tmp_list[row[0]].append(str(row[1]) + weight)
+                    # if row[1] not in tmp_list.keys():
+                    #     tmp_list[row[1]] = []
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+                    # else:
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
             else:
                 tmp_list[row[0]] = []
                 if row[1] >= 0:
                     tmp_list[row[0]].append(str(row[1]) + weight)
+                    # if row[1] not in tmp_list.keys():
+                    #     tmp_list[row[1]] = []
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
+                    # else:
+                    #     tmp_list[row[1]].append(str(row[0]) + weight)
 
         for index, key in enumerate(tmp_list):
             adjacency_list.append([str(key) + ":"])
@@ -106,12 +116,20 @@ class DirectedGraph(WeightedGraph):
 
         return self.get_adjacency_matrix()
 
+    def correct_random(self, vertex_number, edge_prob):
+        self.graph_arr = []
+        for i in range(vertex_number):
+            for j in range(vertex_number):
+                if float(edge_prob) >= random.random() and i != j:
+                    self.graph_arr.append([i, j, 1])
+        return self.get_adjacency_matrix()
+
     def kosaraju(self):
         g_matrix = self.get_adjacency_matrix()
         n = len(g_matrix)
         d = [-1 for i in range(n)]
         f = [-1 for i in range(n)]
-        t = 0
+        t = [0]
         for v in range(n):
             if d[v] == -1:
                 DFS_visit(v, g_matrix, d, f, t)
@@ -129,7 +147,7 @@ class DirectedGraph(WeightedGraph):
         n = len(g_matrix)
         d = [-1 for i in range(n)]
         f = [-1 for i in range(n)]
-        t = 0
+        t = [0]
         for v in range(n):
             if d[v] == -1:
                 DFS_visit(v, g_matrix, d, f, t)
