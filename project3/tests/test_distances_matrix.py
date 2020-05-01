@@ -12,9 +12,9 @@ def main():
     g = WeightedGraph()
 
     graph_utils.print_2d_array("Initial data", g.random_connected_weighted_graph())
-    g.draw()
 
     graph_utils.print_2d_array("\nDistances matrix", g.get_distances_matrix())
+    g.draw()
 
 
 main()

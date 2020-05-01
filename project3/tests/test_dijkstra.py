@@ -18,6 +18,7 @@ def main():
     start_vertex = int(input("Starting vertex (0-" + str(length - 1) + "): "))
     dijkstra_result, distances = g.dijkstra_algorithm(start_vertex)
     graph_utils.print_2d_array("\nDijkstra algorithm output", dijkstra_result)
+    g.draw()
 
 
 main()
