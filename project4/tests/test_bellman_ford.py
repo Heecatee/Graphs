@@ -1,10 +1,9 @@
 import sys
 
-from Graphs.operations import conversions
-
 sys.path.append('..')
 sys.path.append('../..')
 
+from operations import conversions
 from graph.directed_graph import DirectedGraph
 from graph.weighted_graph import WeightedGraph
 import graph.graph_utils as graph_utils
