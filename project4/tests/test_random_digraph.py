@@ -11,7 +11,7 @@ def main():
     graph = DirectedGraph()
     graph.create_from_file_with_instance()
 
-    graph_utils.print_2d_array("Random digraph", graph.random(5, 1))
+    graph_utils.print_2d_array("Random digraph", graph.correct_random(5, 0.5))
 
 
 main()
