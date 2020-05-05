@@ -1,3 +1,4 @@
+import math
 def has_digits(graph):
     for row in graph:
         if not any(i.isdigit() for i in row):
@@ -44,3 +45,12 @@ def multiply_vector_matrix(vector, matrix):
         for j in range(n):
             multiplied_vector[i] += vector[j] * matrix[j][i]
     return multiplied_vector
+
+def gen_coords(amount, r):
+    step = 2 * math.pi / amount
+    coords = [(r * math.cos(math.pi / 2 - step * (0.5 + a)),
+               r * math.sin(math.pi / 2 - step * (0.5 + a)),
+               r * 1.1 * math.cos(math.pi / 2 - step * (0.5 + a)),
+               r * 1.1 * math.sin(math.pi / 2 - step * (0.5 + a)))
+              for a in range(amount)]
+    return coords

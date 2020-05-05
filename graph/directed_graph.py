@@ -5,6 +5,7 @@ import operations.random_gen as random_gen
 import operations.conversions as conversions
 import random
 from graph import graph_utils
+from matplotlib import pyplot as plt
 
 
 # ------------------ Functions for Kosaraju Algorithm ---------------------#
@@ -160,3 +161,18 @@ class DirectedGraph(WeightedGraph):
                 comp[v] = nr
                 components_r(nr, v, g_matrix_transposed, comp)
         return comp
+
+    def draw(self):
+        r = 5
+        adj_mat = self.get_adjacency_matrix()
+        coords = graph_utils.gen_coords(len(adj_mat), r)
+        for id in range(len(coords)):
+            plt.plot(coords[id][0], coords[id][1], 'o')
+            plt.annotate(id, xy=(coords[id][0], coords[id][1]), xytext=(coords[id][2], coords[id][3]))
+        for edge in self.graph_arr:
+            id = edge[0]
+            id2 = edge[1]
+            plt.arrow(coords[id][0], coords[id][1], coords[id2][0]-coords[id][0], coords[id2][1]-coords[id][1], head_width=0.3, length_includes_head=True)
+            plt.annotate(edge[2], xy=(0,0), xytext=((coords[id][0] + coords[id2][0])/2, (coords[id][1] + coords[id2][1])/2))
+        plt.axis([-r - 1, r + 1, -r - 1, r + 1])
+        plt.show()
