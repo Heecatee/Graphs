@@ -1,4 +1,5 @@
 import sys
+from copy import deepcopy
 
 sys.path.append('..')
 sys.path.append('../..')
@@ -8,7 +9,7 @@ import random
 from graph.directed_graph import DirectedGraph
 from matplotlib import pyplot as plt
 
-MAX_ITER = 100
+MAX_ITER = 1500
 
 
 def cycle_length(arr):
@@ -35,22 +36,30 @@ def get_random_edges(arr):
             return arr.index(edge1), arr.index(edge2)
 
 
+def swap_edges(new_cycle):
+    e1, e2 = get_random_edges(new_cycle)
+    new_cycle[e1][1], new_cycle[e2][0] = new_cycle[e2][0].copy(), new_cycle[e1][1].copy()
+    if e2 > 0:
+        new_cycle[e2 - 1][1] = new_cycle[e2][0]
+    if e1 < len(new_cycle) - 1:
+        new_cycle[e1 + 1][0] = new_cycle[e1][1]
+
+
 def simulated_annealing(cycle):
-    # wyznacz dowolny cykl
     for i in range(100, 0, -1):
         T = 0.001 * math.pow(i, 2)
 
-        for it in range(1, 10000):
-            new_cycle = cycle.copy()
-            e1, e2 = get_random_edges(cycle)
-            new_cycle[e1][1], new_cycle[e2][0] = new_cycle[e2][0], new_cycle[e1][1]
+        for it in range(1, MAX_ITER):
+            new_cycle = deepcopy(cycle)
+            swap_edges(new_cycle)
             if cycle_length(new_cycle) < cycle_length(cycle):
-                cycle = new_cycle
+                cycle = deepcopy(new_cycle)
             else:
                 r = random.uniform(0, 1)
                 if r < math.exp(-1 * (cycle_length(new_cycle) - cycle_length(cycle))/T):
-                    cycle = new_cycle
+                    cycle = deepcopy(new_cycle)
                 pass
+            print("iteracja: " + str(i) + " " + str(it))
 
     return cycle
 
